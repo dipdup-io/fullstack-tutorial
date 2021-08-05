@@ -1,0 +1,53 @@
+spec_version: 1.1
+package: demo
+
+database:
+  kind: postgres
+  host: db
+  port: 5432
+  user: dipdup
+  password: ${POSTGRES_PASSWORD:-changeme}
+  database: dipdup
+  schema_name: demo
+
+hasura:
+  url: http://hasura:8080
+  admin_secret: ${ADMIN_SECRET:-changeme}
+  allow_aggregations: False
+  camel_case: true
+  select_limit: 100
+
+contracts:
+  quipuswap_plenty:
+    address: KT1X1LgNkQShpF9nRLYw3Dgdy4qp38MX617z
+    typename: quipuswap_fa12
+  plenty_token:
+    address: KT1GRSvLoikDsXujKgZPsGLX8k8VvR2Tq95b
+    typename: plenty_fa12
+
+datasources:
+  tzkt_mainnet:
+    kind: tzkt
+    url: https://api.tzkt.io
+
+indexes:
+  trades_mainnet:
+    kind: operation
+    contracts:
+      - quipuswap_plenty
+    datasource: tzkt_mainnet
+    handlers:
+      - callback: on_tez_to_token
+        pattern:
+          - destination: quipuswap_plenty
+            entrypoint: tezToTokenPayment
+          - destination: plenty_token
+            entrypoint: transfer
+      - callback: on_token_to_tez
+        pattern:
+          - destination: quipuswap_plenty
+            entrypoint: tokenToTezPayment
+          - destination: plenty_token
+            entrypoint: transfer
+          - type: transaction
+            source: quipuswap_plenty
