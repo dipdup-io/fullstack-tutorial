@@ -1,4 +1,4 @@
-*.sqlite
+*.sqlite3
 node_modules/
 __pycache__/
 dist/
