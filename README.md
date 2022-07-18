@@ -4,7 +4,7 @@ Materials for the video tutorial [How to build a backend for your Tezos dapp](ht
 
 ## Requirements
 
-* Python 3.9+
+* Python 3.10+
 * Poetry
 * Node.js 14+
 * Yarn
