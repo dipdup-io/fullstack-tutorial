@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "dipdup-demo"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Michael Zaikin <mz@baking-bad.org>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-dipdup = "^2.0.3"
+python = ">=3.10,<3.11"
+dipdup = "^5.2.4"
 
 [tool.poetry.dev-dependencies]
 
