@@ -24,7 +24,7 @@ export default {
     since.setMinutes(since.getMinutes() - 5);
 
     client.chain.subscription
-      .demoTrade({ where: { timestamp: { _gt: since.toISOString() } } })
+      .trade({ where: { timestamp: { _gt: since.toISOString() } } })
       .get({ ...everything })
       .subscribe({
         next: res => res.forEach(x => trades.value.push(x))
